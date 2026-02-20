@@ -3,6 +3,7 @@ package application;
 import UI.CardSkill;
 import UI.CharacterModel;
 import UI.EnemyModel;
+import UI.MergeCard;
 import character.Enemy;
 import character.chief;
 import javafx.application.Application;
@@ -31,6 +32,7 @@ public class Main extends Application {
         chief chief = new chief(1,1,1,1,3,1);
         CardSkill cardSkill = new CardSkill(chief,enemy);
         CharacterModel c = new CharacterModel(chief);
+        MergeCard m = new MergeCard();
         Pane GameLayer = new Pane();
 
         EnemyModel e = new EnemyModel(enemy);
@@ -40,7 +42,7 @@ public class Main extends Application {
         GameLayer.getChildren().add(cardSkill);
         GameLayer.getChildren().add(c);
         GameLayer.getChildren().add(e);
-
+        GameLayer.getChildren().add(m);
         root.getChildren().addAll(background,GameLayer);
 
 

@@ -1,0 +1,130 @@
+@startuml
+interface CardGame.Guardalbe {
++ void guard()
+}
+
+interface CardGame.Ultable {
++ void ultable()
+}
+
+enum Turn {
++  PlayerTurn
++  EnemyTurn
+}
+
+class CardGame.ChiefCardUlt {
+}
+class character.chief {
++ void Attack(Enemy)
+}
+
+class UI.CharacterModel {
+- ImageView image
+- String ImagePath
+~ ImageView charImageView
++ void setPosition(double,double)
+}
+
+
+abstract class character.character {
+- int hp
+- int mp
+- int maxHp
+- int maxMP
+- int strength
+- int defence
+- boolean isGuard
++ int getHp()
++ void setHp(int)
++ int getMp()
++ void setMp(int)
++ int getMaxHp()
++ void setMaxHp(int)
++ int getMaxMP()
++ void setMaxMP(int)
++ int getStrength()
++ void setStrength(int)
++ int getDefence()
++ boolean isGuard()
++ void setGuard(boolean)
++ void setDefence(int)
+}
+
+
+class CardGame.Card {
+- int strength
+- int defence
+~ Character character
++ int getStrength()
++ void setStrength(int)
++ int getDefence()
++ void setDefence(int)
+}
+
+
+class application.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+class CardGame.ChiefCardDf {
+}
+class UI.MergeCard {
+- ImageView image
+- String ImagePath
+~ ImageView charImageView
++ void setPosition(double,double)
+}
+
+
+class character.Enemy {
+}
+interface CardGame.Attackable {
++ void attack()
+}
+
+class UI.ChiefCardAtk {
+- String imagePath
+- ImageView imageView
+- character player
++ void setPosition(int,int)
+}
+
+
+class CardGame.ChiefCardAtk {
+- int damageCard
++ void setDamageCard(int)
++ int getDamageCard()
++ void attack()
+}
+
+
+class UI.EnemyModel {
+- ImageView image
+- String ImagePath
+~ ImageView charImageView
++ void setPosition(double,double)
+}
+
+
+class UI.CardSkill {
+- String imagePath
+- ImageView imageView
+- character player
++ void setPosition(int,int)
+}
+
+
+
+
+character.character <|-- character.chief
+javafx.scene.layout.Pane <|-- UI.CharacterModel
+javafx.application.Application <|-- application.Main
+javafx.scene.layout.Pane <|-- UI.MergeCard
+character.character <|-- character.Enemy
+javafx.scene.layout.Pane <|-- UI.ChiefCardAtk
+CardGame.Attackable <|.. CardGame.ChiefCardAtk
+CardGame.Card <|-- CardGame.ChiefCardAtk
+javafx.scene.layout.Pane <|-- UI.EnemyModel
+javafx.scene.layout.Pane <|-- UI.CardSkill
+@enduml

@@ -1,10 +1,12 @@
 package character;
 
+import CardGame.Card;
+
 import javax.swing.text.html.ImageView;
 
 public class chief extends character{
 
-    public chief( int hp, int mp, int maxHp, int maxMP, int strength, int defence) {
+    public chief(int hp, int mp, int maxHp, int maxMP, int strength, int defence, Card Atkcard,Card Dfcard,Card Ult) {
         super(hp,mp,maxHp,maxMP,strength,defence);
     }
     public void Attack(Enemy target) {

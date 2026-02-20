@@ -1,13 +1,13 @@
 package character;
 
 public abstract class character {
-    int hp;
-    int mp;
-    int maxHp;
-    int maxMP;
-    int strength;
-    int defence;
-    boolean isGuard = false;
+    private int hp;
+    private int mp;
+    private int maxHp;
+    private int maxMP;
+    private int strength;
+    private int defence;
+    private boolean isGuard = false;
 
     public character(int hp, int mp, int maxHp, int maxMP, int strength, int defence) {
         setHp(hp);
