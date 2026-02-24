@@ -1,15 +1,13 @@
 package CardGame;
 
-public class Card {
+public abstract class Card {
     private int strength;
     private int defence;
-    Character character;
 
 
-    public Card(int strength, int defence, Character character) {
+    public Card(int strength, int defence) {
         setStrength(strength);
         setDefence(defence);
-        this.character = character;
     }
 
     public int getStrength() {

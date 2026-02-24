@@ -1,30 +1,29 @@
 package UI;
 
-import character.character;
+import character.Character;
+import character.Chief;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import character.chief;
-import character.Enemy;
 import javafx.scene.layout.Pane;
 
-public class ChiefCardAtk extends Pane {
-    private final String imagePath = "/cardTest.png";
-    private ImageView imageView;
-    private character player;
+public class ChiefCardGuardUI extends Pane {
+    private final ImageView imageView;
+    private Character player;
 
-    public ChiefCardAtk(ChiefCardAtk chiefCardAtk) {
+    public ChiefCardGuardUI(Chief chief) {
 
+        String imagePath = "/moon.jpg";
         Image image = new Image(getClass().getResourceAsStream(imagePath));
         imageView = new ImageView(image);
 
-        imageView.setFitWidth(240);
-        imageView.setFitHeight(500);
+        imageView.setFitWidth(140);
+        imageView.setFitHeight(300);
         imageView.setPreserveRatio(true);
 
         getChildren().add(imageView);
 
         setOnMouseClicked(e -> {
-            ch.Attack(en);
+            chief.Guard();
         });
     }
     public void setPosition(int x, int y) {

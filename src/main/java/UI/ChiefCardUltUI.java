@@ -1,31 +1,28 @@
 package UI;
 
-
-import character.character;
+import character.Character;
+import character.Chief;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import character.chief;
-import character.Enemy;
-public class CardSkill extends Pane {
-    private final String imagePath = "/cardTest.png";
-    private ImageView imageView;
-    private character player;
 
-    public CardSkill(chief ch, Enemy en) {
+public class ChiefCardUltUI extends Pane {
+    private final ImageView imageView;
+    private Character player;
+    public ChiefCardUltUI(Chief chief) {
 
+        String imagePath = "/star.jpg";
         Image image = new Image(getClass().getResourceAsStream(imagePath));
         imageView = new ImageView(image);
 
-        imageView.setFitWidth(240);
-        imageView.setFitHeight(500);
+        imageView.setFitWidth(140);
+        imageView.setFitHeight(300);
         imageView.setPreserveRatio(true);
 
         getChildren().add(imageView);
 
         setOnMouseClicked(e -> {
-            ch.Attack(en);
+            chief.Ult();
         });
     }
     public void setPosition(int x, int y) {

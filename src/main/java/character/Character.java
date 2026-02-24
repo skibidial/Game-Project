@@ -1,6 +1,6 @@
 package character;
 
-public abstract class character {
+public abstract class Character {
     private int hp;
     private int mp;
     private int maxHp;
@@ -9,7 +9,7 @@ public abstract class character {
     private int defence;
     private boolean isGuard = false;
 
-    public character(int hp, int mp, int maxHp, int maxMP, int strength, int defence) {
+    public Character(int hp, int mp, int maxHp, int maxMP, int strength, int defence) {
         setHp(hp);
         setMp(mp);
         setMaxHp(maxHp);

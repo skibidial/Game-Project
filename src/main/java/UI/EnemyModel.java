@@ -1,7 +1,6 @@
 package UI;
 
 import character.Enemy;
-import character.chief;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;

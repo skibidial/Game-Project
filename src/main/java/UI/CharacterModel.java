@@ -1,6 +1,6 @@
 package UI;
 
-import character.chief;
+import character.Chief;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -10,7 +10,7 @@ public class CharacterModel extends Pane {
     private ImageView image;
     private final String ImagePath = "/yoo.png";
     ImageView charImageView;
-    public CharacterModel(chief chief) {
+    public CharacterModel(Chief chief) {
 
         Image charImage = new Image(getClass().getResource(ImagePath).toExternalForm());
         charImageView = new ImageView(charImage);

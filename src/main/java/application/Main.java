@@ -1,11 +1,12 @@
 package application;
 
-import UI.CardSkill;
-import UI.CharacterModel;
-import UI.EnemyModel;
-import UI.MergeCard;
+import CardGame.ChiefCardAtk;
+import CardGame.ChiefCardDf;
+import CardGame.ChiefCardUlt;
+import GameLogic.GameLogic;
+import UI.*;
 import character.Enemy;
-import character.chief;
+import character.Chief;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -28,21 +29,52 @@ public class Main extends Application {
         background.setFitWidth(1280);
         background.setFitHeight(720);
 
-        Enemy enemy = new Enemy(1,1,1,1,1,1);
-        chief chief = new chief(1,1,1,1,3,1);
-        CardSkill cardSkill = new CardSkill(chief,enemy);
+
+
+        //character init
+        Enemy enemy = new Enemy(10000,1,100000,1,10,1);
+        Chief chief = new Chief(1000,1,1000000,1,3,1);
+
+        ChiefCardAtk cca = new ChiefCardAtk(10,0,chief);
+        ChiefCardDf ccd = new ChiefCardDf(0,10,chief);
+        ChiefCardUlt ccu = new ChiefCardUlt(100,0,chief);
+        chief.setAll(cca, ccd, ccu);
+        chief.setTarget(enemy);
+        //UI init
+        ChiefCardAtkUI ccaUI = new ChiefCardAtkUI(chief);
+        ChiefCardUltUI ccuUI = new ChiefCardUltUI(chief);
+        ChiefCardGuardUI ccgUI = new ChiefCardGuardUI(chief);
+
+
+        //CardSkill cardSkill = new CardSkill(chief,enemy);
         CharacterModel c = new CharacterModel(chief);
-        MergeCard m = new MergeCard();
-        Pane GameLayer = new Pane();
+        CharacterHpBar hpBar1 = new CharacterHpBar(chief);
+        hpBar1.setPosition(840,200);
+
+        //MergeCard m = new MergeCard();
 
         EnemyModel e = new EnemyModel(enemy);
+        CharacterHpBar hpBar2 = new CharacterHpBar(enemy);
+        hpBar2.setPosition(100,200);
 
-        cardSkill.setPosition(1000,480);
+        //turn logic
 
-        GameLayer.getChildren().add(cardSkill);
+        GameLogic.init(chief,enemy,ccuUI,ccaUI,ccgUI,hpBar1,hpBar2);
+        Pane GameLayer = new Pane();
+        //cardSkill.setPosition(1000,480);
+        ccaUI.setPosition(1000,480);
+        ccuUI.setPosition(900,480);
+        ccgUI.setPosition(800,480);
+        //GameLayer.getChildren().add(cardSkill);
         GameLayer.getChildren().add(c);
         GameLayer.getChildren().add(e);
-        GameLayer.getChildren().add(m);
+
+        GameLayer.getChildren().add(ccaUI);
+        GameLayer.getChildren().add(ccuUI);
+        GameLayer.getChildren().add(ccgUI);
+        GameLayer.getChildren().add(hpBar1);
+        GameLayer.getChildren().add(hpBar2);
+        //GameLayer.getChildren().add(m);
         root.getChildren().addAll(background,GameLayer);
 
 
@@ -51,6 +83,8 @@ public class Main extends Application {
         stage.setTitle("My Card Turn-Based Game");
         stage.setScene(scene);
         stage.show();
+        GameLogic.beginTurns(0);
+
     }
 
     public static void main(String[] args) {
