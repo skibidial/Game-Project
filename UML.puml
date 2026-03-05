@@ -1,0 +1,348 @@
+@startuml
+class GameLogic.GameLogic {
+- {static} ActionState currentState
+- {static} CardUI selectedCardUI
+- {static} List<String> teamNames
+- {static} Enemy enemy
+- {static} int actionsLeft
+- {static} CharacterHpBar characterHpBar2
+- {static} SceneAndSoundManager app
+- {static} TurnIndicator turnIndicator
+- {static} List<Operator> players
+- {static} List<CharacterHpBar> playerHpBars
+- {static} List<XAnimate> playerAnimates
+- {static} Operator activePlayer
+- {static} XAnimate activeAnimate
+- {static} CharacterHpBar activeHpBar
+- {static} CardUI atkCardUI
+- {static} CardUI guardCardUI
+- {static} CardUI ultCardUI
+- {static} int currentAlivePlayers
+- {static} boolean isEnemyDead
++ {static} void init(List<String>,List<Operator>,Enemy,CardUI,CardUI,CardUI,List<CharacterHpBar>,CharacterHpBar,List<XAnimate>,EnemyModel,TurnIndicator,SceneAndSoundManager)
+- {static} void startPlayerTurn()
+- {static} void selectCharacter(int,CardUI,CardUI,CardUI)
+- {static} void setupCardInteraction(CardUI,CardUI,CardUI)
+- {static} void handleCardClick(CardUI)
+- {static} void attackEnemy()
+- {static} void finishSingleAction()
+- {static} void checkEndGame()
+}
+
+
+enum GameLogic.ActionState {
++  PLAYER_SELECT_CHARACTER
++  PLAYER_SELECT_CARD
++  PLAYER_SELECT_TARGET
++  ENEMY_TURN
++  GAME_OVER
+}
+
+class UI.TurnIndicator {
+- Label turnLabel
+- Rectangle background
++ void updateTurn(int)
++ void setPosition(double,double)
+}
+
+
+class application.GameOver {
+- VBox root
++ VBox getRoot()
+}
+
+
+class UI.CardUI {
+- ImageView imageView
+- Card logicalCard
+- DropShadow glowEffect
++ Card getLogicalCard()
++ void setPosition(double,double)
++ void setLogicalCard(Card)
+}
+
+
+class character.Operator {
+- CardAtk AtkCard
+- CardDf DfCard
+- CardUlt Ult
+- Enemy Target
+- int UltOrbs
+- boolean isGuard
+- int initDef
++ void Attack()
++ void Guard()
++ void Ult()
++ void setTarget(Enemy)
++ void setAll(Card,Card,Card)
++ Card getAtkCard()
++ Card getDfCard()
++ Card getUlt()
++ void setUltObs(int)
++ int getUltOrbs()
++ void setIsGuard(boolean)
++ boolean isGuard()
+}
+
+
+class GameLogic.SkillManager {
++ {static} void castUltimate(String,Operator,Enemy,CharacterHpBar,CharacterHpBar,XAnimate)
++ {static} void castAttack(Operator,Enemy,int,CharacterHpBar,XAnimate)
+}
+
+class UI.XAnimate {
+- AudioClip attackSound
+- AudioClip defenseSound
+- AudioClip UltimateSound
+- Thread animationThread
+- int index
+- Image[] frames
++ void Attack()
++ void Guard()
++ void Ult()
++ void setPosition(double,double)
+}
+
+
+class CardGame.CardDf {
+- Operator operator
++ void guard()
+}
+
+
+class UI.JotaroAnimate {
+- AudioClip attackSound
+- AudioClip defenseSound
+- AudioClip UltimateSound
+- AudioClip standappearsound
+- Thread animationThread
+- StandAnimate stand
+- Thread idleThread
+- boolean idleRunning
+- Image[] frames
++ void setStand(StandAnimate)
+- void startIdleAnimation()
++ void Attack()
++ void Guard()
++ void Ult()
+}
+
+
+abstract class CardGame.Card {
+- int strength
+- int defence
++ int getStrength()
++ void setStrength(int)
++ int getDefence()
++ void setDefence(int)
+}
+
+
+class application.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+class GameLogic.EnemyAI {
++ {static} void executeEnemyTurn(Enemy,CharacterHpBar,List<Operator>,List<CharacterHpBar>,TurnIndicator,Runnable)
+}
+
+class application.SceneAndSoundManager {
+- Stage primaryStage
+- StackPane mainRoot
+- StackPane windowRoot
+- {static} double masterVolume
+- {static} double musicVolume
+- {static} double sfxVolume
+- javafx.scene.media.MediaPlayer currentBGM
+- Gameplay currentGame
+- javafx.animation.Timeline bgmFadeTimeline
++ {static} double getMasterVolume()
++ {static} double getMusicVolume()
++ {static} double getSfxVolume()
++ void setMasterVolume(double)
++ void setMusicVolume(double)
++ {static} void setSfxVolume(double)
+- void updateBGMVolume()
++ void playBGM(String)
++ void pauseBGM()
++ void resumeBGM()
++ void fadeBGMToLow()
++ void fadeBGMToNormal()
++ void playDeathSound()
+- void scaleRoot(Scene)
++ Stage getPrimaryStage()
++ StackPane getMainRoot()
++ void fadeIn(Pane)
++ void fadeOutAndSwitch(Pane,Runnable)
++ Button createStyledButton(String)
++ void clearCurrentGame()
++ void showMainMenu()
++ void showSettingsScreen(Runnable)
++ void showDeployScreen()
++ void showLoadingAndCutscene(List<String>)
++ void playUltimateCutscene(String,Runnable)
++ void startGame(List<String>)
++ void showGameOver(String)
+}
+
+
+class CardGame.CardUlt {
+- Operator operator
++ void Ult()
+}
+
+
+class application.CutsceneControls {
++ {static} void showIntroCutscene(SceneAndSoundManager,List<String>)
++ {static} void playUltimateCutscene(SceneAndSoundManager,String,Runnable)
+}
+
+class UI.CharacterHpBar {
+- Character character
+- double maxHP
+- Rectangle hpBar
+- double barWidth
+- Image barUI
++ void takeDamage(double)
++ void updateBar()
++ void setPosition(double,double)
+}
+
+
+interface CardGame.Attackable {
++ void attack(Character)
+}
+
+class UI.StandAnimate {
+- Image[] idleFrames
+- boolean running
+- AudioClip attackSound
+- AudioClip defenseSound
+- AudioClip UltimateSound
+- void startIdleAnimation()
++ void setPosition(double,double)
++ void stop()
++ void starRunning()
++ void attack()
+- void setStandSize(int)
++ void guard()
++ void ult()
+}
+
+
+class UI.EnemyModel {
+- ImageView image
+- String ImagePath
+~ ImageView charImageView
++ void setPosition(double,double)
+}
+
+
+abstract class character.Character {
+- int hp
+- int maxHp
+- int strength
+# int defence
++ int getHp()
++ void setHp(int)
++ int getMaxHp()
++ void setMaxHp(int)
++ int getStrength()
++ void setStrength(int)
++ int getDefence()
++ void setDefence(int)
+}
+
+
+class CardGame.CardAtk {
+- int damageCard
+- int actualDamage
+- Operator operator
++ void setDamageCard(int)
++ int getDamageCard()
++ void attack(Character)
++ int actualDamage()
+}
+
+
+class application.DeployMenu {
+- VBox root
+- VBox createCharacterSlot(String,String)
+- void setupCharacterSelection(VBox,String,List<String>,Button)
++ VBox getRoot()
+}
+
+
+class application.MainMenu {
+- StackPane root
+- MediaPlayer bgmPlayer
+- Button createMenuButton(String)
++ StackPane getRoot()
+}
+
+
+interface CardGame.Ultable {
++ void Ult()
+}
+
+class application.Gameplay {
+- StackPane root
+- MediaPlayer bgmPlayer
++ StackPane getRoot()
+}
+
+
+class character.Enemy {
+- int bleedTurns
++ int getBleedTurns()
++ void setBleedTurns(int)
++ void setDefence(int)
+}
+
+
+interface CardGame.Guardable {
++ void guard()
+}
+
+class UI.MageAnimate {
+- AudioClip attackSound
+- AudioClip defenseSound
+- AudioClip UltimateSound
+- Thread animationThread
+- Image[] frames
++ void Attack()
++ void Guard()
++ void Ult()
+}
+
+
+class application.SettingsMenu {
+- StackPane root
+- HBox createVolumeRow(String,double,java.util.function.Consumer<Double>)
+- Button createArrowBtn(String)
+- HBox createFullscreenRow(SceneAndSoundManager)
++ StackPane getRoot()
+}
+
+
+
+
+javafx.scene.layout.StackPane <|-- UI.TurnIndicator
+javafx.scene.layout.StackPane <|-- UI.CardUI
+character.Character <|-- character.Operator
+javafx.scene.image.ImageView <|-- UI.XAnimate
+CardGame.Guardable <|.. CardGame.CardDf
+CardGame.Card <|-- CardGame.CardDf
+UI.XAnimate <|-- UI.JotaroAnimate
+javafx.application.Application <|-- application.Main
+CardGame.Ultable <|.. CardGame.CardUlt
+CardGame.Card <|-- CardGame.CardUlt
+javafx.scene.layout.Pane <|-- UI.CharacterHpBar
+javafx.scene.image.ImageView <|-- UI.StandAnimate
+javafx.scene.layout.Pane <|-- UI.EnemyModel
+CardGame.Attackable <|.. CardGame.CardAtk
+CardGame.Card <|-- CardGame.CardAtk
+character.Character <|-- character.Enemy
+UI.XAnimate <|-- UI.MageAnimate
+@enduml
